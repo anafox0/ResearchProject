@@ -6,6 +6,9 @@ datatable(readr::read_csv("https://docs.google.com/spreadsheets/d/1f98kFdj9mxVDc
           options = list(scrollX = TRUE, keys = TRUE, pageLength = 40), 
           rownames = FALSE)
 
+library(SummarizedExperiment)
+library (TCGAbiolinks)
+
 # Extracting transcriptome/expression data
 
 query.exp1 <- GDCquery(
@@ -56,7 +59,6 @@ datatable(getResults(query.clin),
 dataClin <- GDCquery_clinic(project = "TCGA-LGG")
 
 
-
 # Get all patients that have gene expression, mutational and clinical data
 # The code below does not work - trying to find the intersection between the patients for which all data is available
 
@@ -66,6 +68,10 @@ common.patients <- intersect(
   substr(getResults(query.clin, cols = "cases"))
 )
 
+
+head(dataClin)
+subsetDataClin <- dataClin[dataClin$age_at_index <30,]
+patientsunder30LGG <- subsetDataClin$bcr_patient_barcode
 
 # Questions
 # Is this the correct way to go about downloading the data
