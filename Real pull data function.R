@@ -9,6 +9,7 @@ real.pull.data <- function(
   workflow.type = "HTSeq - FPKM-UQ",
   save.filename = ""
 ){
+  
   # Downloading expression data
   
   query.exp <- GDCquery(
