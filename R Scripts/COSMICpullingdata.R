@@ -36,7 +36,8 @@ cosmicGS.brca[grep("TP53",cosmicGS.brca$Gene.name),]
 
 ### trim everything after the underscore
 gsub('_.*', '',cosmicGS.brca$Gene.name) -> gene.names.trimmed
-gsub('\\.*', '',cosmicGS.brca$Accession.Number) -> AN.trimmed
+gsub('.{2}$', '',cosmicGS.brca$Accession.Number) -> AN.trimmed1
+gsub('ENST', 'ENSG', AN.trimmed1) -> AN.trimmed
 
 ### add an extra column to the subsetted dataframe
 cosmicGS.brca$gene.names.trimmed <- gene.names.trimmed
@@ -101,7 +102,7 @@ head(cosmicGS.brca)
 
 
 write.table(brca.cosmic, file = "./cosmicdata/cosmic.brca.txt", sep = "\t", quote = F, row.names = F)
-
+write.csv(brca.cosmic, file = "./cosmicdata/cosmic.brca.csv", row.names = F)
 
 
 
@@ -140,7 +141,8 @@ cosmicGS.gbm[grep("TP53",cosmicGS.gbm$Gene.name),]
 
 ### trim everything after the underscore
 gsub('_.*', '',cosmicGS.gbm$Gene.name) -> gene.names.trimmed
-gsub('\\.*', '',cosmicGS.gbm$Accession.Number) -> AN.trimmed
+gsub('\\..*', '', cosmicGS.gbm$Accession.Number) -> AN.trimmed1
+gsub('ENST', 'ENSG', AN.trimmed1) -> AN.trimmed
 
 ### add an extra column to the subsetted dataframe
 cosmicGS.gbm$gene.names.trimmed <- gene.names.trimmed
@@ -199,9 +201,6 @@ gbm.cosmic1 %>% full_join(freq.gene.mut, by = "gene.names.trimmed") -> gbm.cosmi
 
 
 
-#saveRDS(gbm.cosmic, file = "./CosmicGSData/gbm.cosmic.rds")
-# cosmicGS.lgg <- readRDS(file = "./CosmicGSData/gbm.cosmic.rds")
-
 
 
 plot(ordered.freq.gene.mut)
@@ -211,7 +210,7 @@ head(cosmicGS.gbm)
 #saveRDS(cosmicGS.gbm, file = "./CosmicGSData/cosmicGS.gbm.dedup.rds")
 # cosmicGS.gbm <- readRDS(file = "./CosmicGSData/cosmicGS.gbm.dedup.rds")
 write.table(gbm.cosmic, file = "./cosmicdata/cosmic.gbm.txt", sep = "\t", quote = F, row.names = F)
-
+write.csv(gbm.cosmic, file = "./cosmicdata/cosmic.gbm.csv", row.names = F)
 # LAML ---------------------------------------------------------------------
 
 head(cosmicGS)
@@ -247,7 +246,7 @@ cosmicGS.laml[grep("TP53",cosmicGS.laml$Gene.name),]
 
 ### trim everything after the underscore
 gsub('_.*', '',cosmicGS.laml$Gene.name) -> gene.names.trimmed
-gsub('.{2}$', '', cosmicGS.laml$Accession.Number) -> AN.trimmed1
+gsub('\\..*', '', cosmicGS.laml$Accession.Number) -> AN.trimmed1
 gsub('ENST', 'ENSG', AN.trimmed1) -> AN.trimmed
 
 ### add an extra column to the subsetted dataframe
@@ -309,7 +308,6 @@ laml.cosmic1 %>% full_join(freq.gene.mut, by = "gene.names.trimmed") -> laml.cos
 saveRDS(laml.cosmic, file = "./CosmicGSData/laml.cosmic.rds")
 write.csv(laml.cosmic, file = "./cosmicdata/cosmic.laml.csv", row.names = F)
 
-write.csv(Your DataFrame,"Path to export the DataFrame\\File Name.csv", row.names = FALSE)
 
 
 # KIRC ---------------------------------------------------------------------
@@ -347,7 +345,8 @@ cosmicGS.kirc[grep("TP53",cosmicGS.kirc$Gene.name),]
 
 ### trim everything after the underscore
 gsub('_.*', '',cosmicGS.kirc$Gene.name) -> gene.names.trimmed
-gsub('\\.*', '',cosmicGS.kirc$Accession.Number) -> AN.trimmed
+gsub('.{2}$', '',cosmicGS.kirc$Accession.Number) -> AN.trimmed1
+gsub('ENST', 'ENSG', AN.trimmed1) -> AN.trimmed
 
 ### add an extra column to the subsetted dataframe
 cosmicGS.kirc$gene.names.trimmed <- gene.names.trimmed
@@ -407,7 +406,7 @@ kirc.cosmic1 %>% full_join(freq.gene.mut, by = "gene.names.trimmed") -> kirc.cos
 
 saveRDS(kirc.cosmic, file = "./CosmicGSData/kirc.cosmic.rds")
 write.table(kirc.cosmic, file = "./cosmicdata/cosmic.kirc.txt", sep = "\t", quote = F, row.names = F)
-
+write.csv(kirc.cosmic, file = "./cosmicdata/cosmic.kirc.csv", row.names = F)
 
 # LGG ---------------------------------------------------------------------
 
@@ -444,7 +443,8 @@ cosmicGS.lgg[grep("TP53",cosmicGS.lgg$Gene.name),]
 
 ### trim everything after the underscore
 gsub('_.*', '',cosmicGS.lgg$Gene.name) -> gene.names.trimmed
-gsub('\\.*', '',cosmicGS.lgg$Accession.Number) -> AN.trimmed
+gsub('.{2}$', '',cosmicGS.lgg$Accession.Number) -> AN.trimmed1
+gsub('ENST', 'ENSG', AN.trimmed1) -> AN.trimmed
 
 ### add an extra column to the subsetted dataframe
 cosmicGS.lgg$gene.names.trimmed <- gene.names.trimmed
@@ -504,3 +504,4 @@ lgg.cosmic1 %>% full_join(freq.gene.mut, by = "gene.names.trimmed") -> lgg.cosmi
 
 saveRDS(lgg.cosmic, file = "./CosmicGSData/lgg.cosmic.rds")
 write.table(lgg.cosmic, file = "./cosmicdata/cosmic.lgg.txt", sep = "\t", quote = F, row.names = F)
+write.csv(lgg.cosmic, file = "./cosmicdata/cosmic.lgg.csv", row.names = F)
